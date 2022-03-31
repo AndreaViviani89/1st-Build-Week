@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import re
 import plotly.express as px
+from PIL import Image
 
 df = pd.read_csv("C:/Users/andre/Documents/Strive_repository/1st-Build-Week/Data/Resturantdata.csv")
 
