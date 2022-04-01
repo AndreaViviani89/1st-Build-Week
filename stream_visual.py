@@ -18,16 +18,34 @@ data_select = st.sidebar.selectbox("Select the data you want to see", ("Home", "
 #   Homepage
 if data_select == "Home":
 
+    image_1 = Image.open("C:/Users/andre/Documents/Strive_repository/1st-Build-Week/img1.jpg")
+    image_2 = Image.open("C:/Users/andre/Documents/Strive_repository/1st-Build-Week/img2.png")
+
     st.title('Accommodation, Restaurants & Drink Services in Berlin')
+    st.image(image_1)
     st.header('Why accommodation, food, and drink services industry?')
     st.markdown("""The accommodation industry and the food and drink services industry have faced unprecedented change due to the coronavirus (COVID-19) pandemic.
     Up until this moment, the accommodation, food, and drink services industry have been seeing consistent year-over-year growth in all its sectors.
-    Yet, while the pandemic has proved to be a difficult time for these industries, it is still predicted to see growth.""")
+    Yet, while the pandemic has proved to be a difficult time for these industries, it is still predicted to see growth (Statista, n.d.).""")
+
+    st.header('Why Berlin?')
+    st.markdown("""Investing in Berlin is an interesting opportunity from an economic point of view, demographic and geographic. 
+    The city of Berlin offers more and more settlement opportunities to international companies.
+    Every year, the population of Berlin increases, and the growth potential is still very strong due to the space available.
+    The capital of an economically strong country is now the geographical centre of the European Union (AB Real Estate GmbH, n.d.).""")
+
+    st.header('Goals and data source')
+    st.markdown("""In this analysis, it has been studied the dynamics of the main accommodation activities, restaurants, and pubs in the city of Berlin.
+    The main goal of our project is to provide our investors some suggestions about the characteristics of reliable activities to invest in.
+    This analysis was conducted collecting data from Yelp about hotels, restaurants, and pubs in Berlin. Therefore, the data from these three categories and the rate has been compared to provide some recommendation.""")
 
 
-    st.header('Team member')
-    st.markdown('* *Andrea*')
-    st.markdown('* *Eunice*')
+    st.header('Team members')
+    st.image(image_2)
+
+    st.header('Sources')
+    st.markdown("""AB Real Estate GmbH. (n.d.). Invest in Berlin estate. Retrieved March 31, 2022, from Invest-AB: https://www.invest-ab.com/invest-in-berlin/""")
+    st.markdown("""Statista. (n.d.). Food & Drink Services. Retrieved March 31, 2022, from Statista: https://www.statista.com/markets/420/topic/494/food-drink-services/#overview""")
 
     # px.set_mapbox_access_token(open(".mapbox_token").read())
     # fig = px.scatter_mapbox(df_test, lat="Latitude", lon="Longitude",zoom=12, size = 'reviews', color='rating', 
