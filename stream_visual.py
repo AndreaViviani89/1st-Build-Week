@@ -9,6 +9,11 @@ df = pd.read_csv("C:/Users/andre/Documents/Strive_repository/1st-Build-Week/Data
 df_pub = pd.read_csv("C:/Users/andre/Documents/Strive_repository/1st-Build-Week/Data/Pubdata.csv")
 df_hotel = pd.read_csv("C:/Users/andre/Documents/Strive_repository/1st-Build-Week/Data/Hoteldata.csv")
 
+
+plt.rcdefaults()
+plt.rcParams.update({'axes.facecolor':'black'})
+plt.figure(facecolor='black')
+
 # df_test = pd.read_csv("C:/Users/andre/Desktop/Resturantdata.csv")
 
 
@@ -68,7 +73,22 @@ elif data_select == "Restaurants":
     
     st.text('Little description here')
 
+
     #   Graph n.2
+
+    st.subheader('Need to do it faincier')
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+
+    new = df[df['Number_of_reviews']>280]
+    new = new.sort_values('Number_of_reviews',ascending=False)
+    new.plot(x='Type_of_resturant',y='Number_of_reviews',kind='bar')
+    st.pyplot()
+
+
+
+
+
+    #   Graph n.3
 
     fig = px.bar(df['Prices'].value_counts(ascending=True), orientation='h', height=650, width=850, labels={
             "value": "Number of Restaurants with respective price range",
@@ -77,7 +97,7 @@ elif data_select == "Restaurants":
     title='Price range of restaurants in Berlin')
     st.write(fig)    
     
-    #   Graph n.3
+    #   Graph n.4
 
     st.subheader('Graph Title - to do')
     df_type = px.bar(df["Type_of_resturant"].value_counts(ascending=True).nlargest(10), height=600, width=800, labels={
@@ -89,6 +109,33 @@ elif data_select == "Restaurants":
 
     #   Graph n.4 
     
+    # Test
+
+    # st.subheader('Average rating compared to price range')
+    # fig = px.bar(x = df.groupby('Prices')['Ratings'].agg('mean').sort_values().values, 
+    # y = df.groupby('Prices')['Ratings'].agg('mean').sort_values().index,
+    # height=600, width=800, 
+    # labels={
+    #         "x": "Average rating",
+    #         "y": "Price range"
+    # })
+    # st.plotly_chart(fig)
+
+
+
+    # st.subheader('Average rating compared to price range')
+    # fig = px.bar(x = df.groupby('Number_of_reviews')['Ratings'].agg('mean').sort_values().values, 
+    # y = df.groupby('Number_of_reviews')['Ratings'].agg('mean').sort_values().index,
+    # height=600, width=800, 
+    # labels={
+    #         "x": "Average rating",
+    #         "y": "Price range"
+    # })
+    # st.plotly_chart(fig)
+
+    #   finished test
+
+    #   Graph n.5
     st.subheader('Need to do it faincier')
 
     st.set_option('deprecation.showPyplotGlobalUse', False)
@@ -96,22 +143,16 @@ elif data_select == "Restaurants":
     plt.ylabel('Counts')
     plt.title('Most prefered price range')
     st.pyplot()
-
-    #   Fancier but..
-    df_prices = df[['Ratings','Prices']].groupby(['Prices']).value_counts()
-    test = px.bar(df_prices, x=df_prices.index.get_level_values(1),y=0)
-    st.write(test)
     st.text('Little description here')
-
     #   Graph n.5
 
-    st.subheader('Need to do it faincier')
-    df[['Type_of_resturant','Ratings']].groupby('Type_of_resturant').value_counts().nlargest(10). plot(kind='barh')
+    # st.subheader('Need to do it faincier')
+    # df[['Type_of_resturant','Ratings']].groupby('Type_of_resturant').value_counts().nlargest(10). plot(kind='barh')
 
-    plt.xlabel('Counts')
-    plt.title('Most prefered type of restaurant by rating')
-    st.pyplot()
-    st.text('Little description here')
+    # plt.xlabel('Counts')
+    # plt.title('Most prefered type of restaurant by rating')
+    # st.pyplot()
+    
 
 
 
@@ -133,9 +174,18 @@ elif data_select == "Hotels":
 
     st.text('Little description here')
 
-
 #   Graph n.2
+    plt.figure(facecolor='white')
 
+    df_hotel['Neighbourhoods'].value_counts().nlargest(10).plot(kind = 'pie',figsize=(8,8), autopct = '%1.1f%%')
+    
+    plt.title('Cluster location of hotels')
+    st.pyplot()
+
+
+#   Graph n.3
+
+    st.subheader('Graph Title - to do')
     fig = px.bar(df_hotel['Prices'].value_counts(ascending=True), orientation='h', height=650, width=850, labels={
         "value": "Number of hotels with respective price range",
         "index": "Price range (in euros)"
@@ -146,7 +196,27 @@ elif data_select == "Hotels":
     st.text('Little description here')
 
 
-#   Graph n.3
+#   Graph n.4
+
+    st.subheader('Graph Title - to do')
+    df_hotel[['Ratings','Prices']].groupby(['Prices']).value_counts().plot(kind='bar')
+    plt.ylabel('Counts')
+    plt.title('Most prefered price range')
+    st.pyplot()
+    st.text('Little description here')
+
+
+#   Graph n.5
+    st.subheader('Graph Title - to do')
+    df_hotel[['Prices','Number_of_reviews']].groupby(['Prices']).sum().plot(kind='bar')
+    plt.ylabel('Counts')
+    plt.title('Most prefered price range')
+    st.pyplot()
+    st.text('Little description here')
+
+
+
+#   Graph n.5
 
     st.subheader('Graph Title - to do')
     df_type = px.bar(df_hotel["Type_of_hotels"].value_counts(ascending=True).nlargest(10), height=600, width=800, labels={
@@ -169,7 +239,7 @@ elif data_select == "Pubs":
 #   Graph n.1
 
     st.subheader('Graph Title - to do')
-    fig=px.bar(df_pub['Neighbourhoods'].value_counts(), orientation='h', height=700, width=850, labels={
+    fig=px.bar(df_pub['Neighbourhoods'].value_counts(), orientation='h', height=750, width=850, labels={
         "value": "Number of pubs per neighbourhood",
         "index": "Neighbourhoods"
     })
@@ -177,8 +247,17 @@ elif data_select == "Pubs":
 
     st.text('Little description here')
 
-
 #   Graph n.2
+
+    plt.figure(facecolor='white')
+
+    df_pub['Neighbourhoods'].value_counts().nlargest(10).plot(kind = 'pie',figsize=(8,8), autopct = '%1.1f%%')
+    
+    plt.title('Cluster location of hotels')
+    st.pyplot()
+
+
+#   Graph n.3
 
     fig = px.bar(df_pub['Prices'].value_counts(ascending=True), orientation='h', height=650, width=850, labels={
         "value": "Number of pubs with respective price range",
@@ -189,6 +268,13 @@ elif data_select == "Pubs":
 
     st.text('Little description here')
 
+
+
+    df_pub[['Ratings','Prices']].groupby(['Prices']).value_counts().plot(kind='bar')
+    plt.ylabel('Counts')
+    plt.title('Most prefered price range')
+    st.pyplot()
+    st.text('Little description here')
 
 #   Graph n.3
 
