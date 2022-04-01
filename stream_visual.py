@@ -214,7 +214,7 @@ elif data_select == "Hotels":
 #   Graph n.1
 
     st.subheader('Number of hotels per neighbourhood')
-    fig=px.bar(df_hotel['Neighbourhoods'].value_counts(), orientation='h', height=700, width=850, labels={
+    fig=px.bar(df_hotel['Neighbourhoods'].value_counts(), orientation='v', height=700, width=850, labels={
         "value": "Number of hotels per neighbourhood",
         "index": "Neighbourhoods"
     })
@@ -230,6 +230,14 @@ elif data_select == "Hotels":
     df_hotel['Neighbourhoods'].value_counts().nlargest(10).plot(kind = 'pie',figsize=(8,8), autopct = '%1.1f%%')
     
     plt.title('Cluster location of hotels')
+    st.pyplot()
+
+
+
+    st.subheader('Neighbourhood with most popular lodging')
+    df_hotel[['Neighbourhoods','Number_of_reviews']].groupby('Neighbourhoods').sum().sort_values('Number_of_reviews',ascending=False).head(10).plot(kind='bar')
+    plt.ylabel('Counts')
+    plt.title('Neighbourhoods with most popular lodging')
     st.pyplot()
 
 
@@ -255,13 +263,13 @@ elif data_select == "Hotels":
     st.text('Middle price range businesses have obtained an average rate around 4.0.')
 
 
-#   Graph n.5
-    st.subheader('Price range per number of reviews')
-    df_hotel[['Prices','Number_of_reviews']].groupby(['Prices']).sum().plot(kind='bar')
-    plt.ylabel('Counts')
-    plt.title('Most prefered price range')
-    st.pyplot()
-    st.text('Middle price range businesses are reviewed more frequently')
+# #   Graph n.5
+#     st.subheader('Price range per number of reviews')
+#     df_hotel[['Prices','Number_of_reviews']].groupby(['Prices']).sum().plot(kind='bar')
+#     plt.ylabel('Counts')
+#     plt.title('Most prefered price range')
+#     st.pyplot()
+#     st.text('Middle price range businesses are reviewed more frequently')
 
 
 
@@ -288,7 +296,7 @@ elif data_select == "Pubs":
 #   Graph n.1
 
     st.subheader('Number of pubs per neighbourhood')
-    fig=px.bar(df_pub['Neighbourhoods'].value_counts(), orientation='h', height=750, width=850, labels={
+    fig=px.bar(df_pub['Neighbourhoods'].value_counts(), orientation='v', height=750, width=850, labels={
         "value": "Number of pubs per neighbourhood",
         "index": "Neighbourhoods"
     })
@@ -307,6 +315,12 @@ elif data_select == "Pubs":
     plt.title('Cluster location of hotels')
     st.pyplot()
 
+
+    st.subheader('Most visited Neighbourhoods')
+    df_pub[['Neighbourhoods','Number_of_reviews']].groupby(['Neighbourhoods']).sum().sort_values('Number_of_reviews',ascending=False).plot(kind='bar')
+    plt.ylabel('Counts')
+    plt.title(' Most visited Neighbourhoods ')
+    st.pyplot()
 
 #   Graph n.3
     st.subheader('Price range of pubs in Berlin')
