@@ -5,13 +5,15 @@ import re
 import plotly.express as px
 from PIL import Image
 
-df = pd.read_csv("C:/Users/andre/Documents/Strive_repository/1st-Build-Week/Data/Resturantdata.csv")
-df_pub = pd.read_csv("C:/Users/andre/Documents/Strive_repository/1st-Build-Week/Data/Pubdata.csv")
-df_hotel = pd.read_csv("C:/Users/andre/Documents/Strive_repository/1st-Build-Week/Data/Hoteldata.csv")
+df = pd.read_csv("Resturantdata.csv")
+df_pub = pd.read_csv("Pubdata.csv")
+df_hotel = pd.read_csv("Hoteldata.csv")
 
 # df_test = pd.read_csv("C:/Users/andre/Desktop/Resturantdata.csv")
 
-
+plt.rcdefaults()
+plt.rcParams.update({'axes.facecolor':'black'})
+# plt.figure(facecolor='black') 
 
 data_select = st.sidebar.selectbox("Select the data you want to see", ("Home", "Restaurants", "Hotels", "Pubs"))
 
@@ -51,7 +53,7 @@ elif data_select == "Restaurants":
     st.text('Little description here')
 
     #   Graph n.2
-
+    
     fig = px.bar(df['Prices'].value_counts(ascending=True), orientation='h', height=650, width=850, labels={
             "value": "Number of Restaurants with respective price range",
             "index": "Price range (in euros)"
@@ -74,9 +76,33 @@ elif data_select == "Restaurants":
     st.subheader('Need to do it faincier')
 
     st.set_option('deprecation.showPyplotGlobalUse', False)
-    df[['Ratings','Prices']].groupby(['Prices']).value_counts().plot(kind='bar')
-    plt.ylabel('Counts')
-    plt.title('Most prefered price range')
+    plt.figure(facecolor='black') 
+    df[['Ratings','Prices']].groupby(['Prices']).value_counts().plot(kind='bar',color='royalblue')
+    plt.gca().get_xticklabels()[0].set_color('white')
+    plt.gca().get_xticklabels()[1].set_color('white')
+    plt.gca().get_xticklabels()[2].set_color('white')
+    plt.gca().get_xticklabels()[3].set_color('white')
+    plt.gca().get_xticklabels()[4].set_color('white')
+    plt.gca().get_xticklabels()[5].set_color('white')
+    plt.gca().get_xticklabels()[6].set_color('white')
+    plt.gca().get_xticklabels()[7].set_color('white')
+    plt.gca().get_xticklabels()[8].set_color('white')
+    plt.gca().get_xticklabels()[9].set_color('white')
+    plt.gca().get_xticklabels()[10].set_color('white')
+    plt.gca().get_xticklabels()[11].set_color('white')
+    plt.gca().get_xticklabels()[12].set_color('white')
+    plt.gca().get_xticklabels()[13].set_color('white')
+    plt.gca().get_xticklabels()[14].set_color('white')
+    plt.gca().get_yticklabels()[0].set_color('white')
+    plt.gca().get_yticklabels()[1].set_color('white')
+    plt.gca().get_yticklabels()[2].set_color('white')
+    plt.gca().get_yticklabels()[3].set_color('white')
+    plt.gca().get_yticklabels()[4].set_color('white')
+    plt.gca().get_yticklabels()[5].set_color('white')
+    plt.gca().get_yticklabels()[6].set_color('white')
+    plt.xlabel('Prices, Ratings',color='white')
+    plt.ylabel('Counts',color='white')
+    plt.title('Most prefered price range',color='white')
     st.pyplot()
 
     #   Fancier but..
@@ -95,7 +121,11 @@ elif data_select == "Restaurants":
     st.pyplot()
     st.text('Little description here')
 
-
+    plt.figure(facecolor='black') 
+    df['Neighbourhoods'].value_counts().nlargest(10).plot(kind = 'pie',figsize=(8,8), autopct = '%1.1f%%',textprops={'color':"w"})
+    
+    plt.title('Cluster location of hotels',color='white')
+    st.pyplot()
 
 #   Hotels
 
