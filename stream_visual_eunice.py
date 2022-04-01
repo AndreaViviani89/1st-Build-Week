@@ -76,7 +76,7 @@ elif data_select == "Restaurants":
     st.subheader('Need to do it faincier')
 
     st.set_option('deprecation.showPyplotGlobalUse', False)
-    plt.figure(facecolor='black') 
+    plt.figure(facecolor='red') 
     df[['Ratings','Prices']].groupby(['Prices']).value_counts().plot(kind='bar',color='royalblue')
     plt.gca().get_xticklabels()[0].set_color('white')
     plt.gca().get_xticklabels()[1].set_color('white')
