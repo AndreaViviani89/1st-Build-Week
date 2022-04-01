@@ -6,13 +6,14 @@ import plotly.express as px
 from PIL import Image
 
 df = pd.read_csv("C:/Users/andre/Documents/Strive_repository/1st-Build-Week/Data/Resturantdata.csv")
+df_type = pd.read_csv("C:/Users/andre/Documents/Strive_repository/1st-Build-Week/Data/type_of_rest.csv")
 df_pub = pd.read_csv("C:/Users/andre/Documents/Strive_repository/1st-Build-Week/Data/Pubdata.csv")
 df_hotel = pd.read_csv("C:/Users/andre/Documents/Strive_repository/1st-Build-Week/Data/Hoteldata.csv")
 
 
 plt.rcdefaults()
 plt.rcParams.update({'axes.facecolor':'black'})
-plt.figure(facecolor='black')
+# plt.figure(facecolor='black')
 
 # df_test = pd.read_csv("C:/Users/andre/Desktop/Resturantdata.csv")
 
@@ -60,52 +61,71 @@ if data_select == "Home":
 #   Restaurants
 elif data_select == "Restaurants":
 
-    st.title("Restaurant insights")
+    st.title("Restaurant data")
     
     #   Graph n.1
 
-    st.subheader('Graph Title - to do')
+    st.subheader('Number of restaurants per neighbourhoods')
     fig=px.bar(df['Neighbourhoods'].value_counts(), height=600, width=800, labels={
         "value": "Number of restaurants per neighbourhood",
         "index": "Neighbourhoods"
     })
     st.write(fig)
     
-    st.text('Little description here')
-
+    st.text('As we can see most of the restaurants are located in the city centre (Mitte).')
 
     #   Graph n.2
 
-    st.subheader('Need to do it faincier')
-    st.set_option('deprecation.showPyplotGlobalUse', False)
-
-    new = df[df['Number_of_reviews']>280]
-    new = new.sort_values('Number_of_reviews',ascending=False)
-    new.plot(x='Type_of_resturant',y='Number_of_reviews',kind='bar')
-    st.pyplot()
-
-
-
-
-
-    #   Graph n.3
-
-    fig = px.bar(df['Prices'].value_counts(ascending=True), orientation='h', height=650, width=850, labels={
-            "value": "Number of Restaurants with respective price range",
-            "index": "Price range (in euros)"
-    },
-    title='Price range of restaurants in Berlin')
-    st.write(fig)    
-    
-    #   Graph n.4
-
-    st.subheader('Graph Title - to do')
-    df_type = px.bar(df["Type_of_resturant"].value_counts(ascending=True).nlargest(10), height=600, width=800, labels={
+    st.subheader('Type of restaurants')
+    df_type = px.bar(df_type["Type_of_resturant"].value_counts(ascending=True).nlargest(10), height=600, width=800, labels={
         "value": "Type of restaurants",
         "index": "Categories"
     })
     st.write(df_type)
-    st.text('Little description here')
+    st.markdown('Among all the type of restaurant German cuisine is the most popular in the city followed the Italian.')
+
+    #   Graph n.3
+
+    st.subheader('Type of restaurants per number of reviews')
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    plt.figure(facecolor='black')
+    new = df[df['Number_of_reviews']>280]
+    new = new.sort_values('Number_of_reviews',ascending=False)
+    new.plot(x='Type_of_resturant',y='Number_of_reviews',kind='bar')
+
+    plt.gca().get_xticklabels()[0].set_color('white')
+    plt.gca().get_xticklabels()[1].set_color('white')
+    plt.gca().get_xticklabels()[2].set_color('white')
+    plt.gca().get_xticklabels()[3].set_color('white')
+    plt.gca().get_xticklabels()[4].set_color('white')
+    plt.gca().get_xticklabels()[5].set_color('white')
+    plt.gca().get_xticklabels()[6].set_color('white')
+    plt.gca().get_xticklabels()[7].set_color('white')
+    plt.gca().get_xticklabels()[8].set_color('white')
+    plt.gca().get_yticklabels()[0].set_color('white')
+    plt.gca().get_yticklabels()[1].set_color('white')
+    plt.gca().get_yticklabels()[2].set_color('white')
+    plt.gca().get_yticklabels()[3].set_color('white')
+    plt.gca().get_yticklabels()[4].set_color('white')
+    plt.gca().get_yticklabels()[5].set_color('white')
+    
+
+    st.pyplot()
+
+    st.markdown('Quick service restaurants which combine fast-food and home delivery/takeaway are the most reviewed business.')
+
+    #   Graph n.4
+
+    st.subheader('Price range')
+    fig = px.bar(df['Prices'].value_counts(ascending=True), orientation='h', height=650, width=850, labels={
+            "value": "Number of Restaurants with respective price range",
+            "index": "Price range"
+    })
+    st.write(fig)
+
+    st.text('Most of the restaurants fall into a low-middle price range.')    
+    
+
 
     #   Graph n.4 
     
@@ -136,14 +156,42 @@ elif data_select == "Restaurants":
     #   finished test
 
     #   Graph n.5
-    st.subheader('Need to do it faincier')
+    st.subheader('Price range per rating')
 
     st.set_option('deprecation.showPyplotGlobalUse', False)
-    df[['Ratings','Prices']].groupby(['Prices']).value_counts().plot(kind='bar')
-    plt.ylabel('Counts')
-    plt.title('Most prefered price range')
+    plt.figure(facecolor='black')
+    df[['Ratings','Prices']].groupby(['Prices']).value_counts().plot(kind='bar', color='royalblue')
+
+    plt.gca().get_xticklabels()[0].set_color('white')
+    plt.gca().get_xticklabels()[1].set_color('white')
+    plt.gca().get_xticklabels()[2].set_color('white')
+    plt.gca().get_xticklabels()[3].set_color('white')
+    plt.gca().get_xticklabels()[4].set_color('white')
+    plt.gca().get_xticklabels()[5].set_color('white')
+    plt.gca().get_xticklabels()[6].set_color('white')
+    plt.gca().get_xticklabels()[7].set_color('white')
+    plt.gca().get_xticklabels()[8].set_color('white')
+    plt.gca().get_xticklabels()[9].set_color('white')
+    plt.gca().get_xticklabels()[10].set_color('white')
+    plt.gca().get_xticklabels()[11].set_color('white')
+    plt.gca().get_xticklabels()[12].set_color('white')
+    plt.gca().get_xticklabels()[13].set_color('white')
+    plt.gca().get_xticklabels()[14].set_color('white')
+    plt.gca().get_yticklabels()[0].set_color('white')
+    plt.gca().get_yticklabels()[1].set_color('white')
+    plt.gca().get_yticklabels()[2].set_color('white')
+    plt.gca().get_yticklabels()[3].set_color('white')
+    plt.gca().get_yticklabels()[4].set_color('white')
+    plt.gca().get_yticklabels()[5].set_color('white')
+    plt.gca().get_yticklabels()[6].set_color('white')
+    plt.xlabel('Prices, Ratings',color='white')
+    plt.ylabel('Counts', color='white')
+    plt.title('Most prefered price range', color='white')
     st.pyplot()
-    st.text('Little description here')
+    st.markdown('Low-middle price range business are rated higher than the middle-high price range business.')
+
+
+
     #   Graph n.5
 
     # st.subheader('Need to do it faincier')
@@ -160,21 +208,23 @@ elif data_select == "Restaurants":
 
 elif data_select == "Hotels":
 
-    st.title("Hotels insights")
+    st.title("Hotels data")
 
 
 #   Graph n.1
 
-    st.subheader('Graph Title - to do')
+    st.subheader('Number of hotels per neighbourhood')
     fig=px.bar(df_hotel['Neighbourhoods'].value_counts(), orientation='h', height=700, width=850, labels={
         "value": "Number of hotels per neighbourhood",
         "index": "Neighbourhoods"
     })
     st.write(fig)
 
-    st.text('Little description here')
+    st.text('As we can see, most of the hotels are located in the city centre (Mitte).')
 
 #   Graph n.2
+
+    st.subheader('Percentage of hotels by neighbourhood')
     plt.figure(facecolor='white')
 
     df_hotel['Neighbourhoods'].value_counts().nlargest(10).plot(kind = 'pie',figsize=(8,8), autopct = '%1.1f%%')
@@ -185,46 +235,45 @@ elif data_select == "Hotels":
 
 #   Graph n.3
 
-    st.subheader('Graph Title - to do')
+    st.subheader('Price range of hotels in Berlin')
     fig = px.bar(df_hotel['Prices'].value_counts(ascending=True), orientation='h', height=650, width=850, labels={
         "value": "Number of hotels with respective price range",
         "index": "Price range (in euros)"
-    },
-    title='Price range of hotels in Berlin')
+    })
     st.write(fig)   
 
-    st.text('Little description here')
+    st.text('Most of the hotels fall into a middle price range.')
 
 
 #   Graph n.4
 
-    st.subheader('Graph Title - to do')
+    st.subheader('Price range per rating')
     df_hotel[['Ratings','Prices']].groupby(['Prices']).value_counts().plot(kind='bar')
     plt.ylabel('Counts')
     plt.title('Most prefered price range')
     st.pyplot()
-    st.text('Little description here')
+    st.text('Middle price range businesses have obtained an average rate around 4.0.')
 
 
 #   Graph n.5
-    st.subheader('Graph Title - to do')
+    st.subheader('Price range per number of reviews')
     df_hotel[['Prices','Number_of_reviews']].groupby(['Prices']).sum().plot(kind='bar')
     plt.ylabel('Counts')
     plt.title('Most prefered price range')
     st.pyplot()
-    st.text('Little description here')
+    st.text('Middle price range businesses are reviewed more frequently')
 
 
 
 #   Graph n.5
 
-    st.subheader('Graph Title - to do')
-    df_type = px.bar(df_hotel["Type_of_hotels"].value_counts(ascending=True).nlargest(10), height=600, width=800, labels={
-        "value": "Type of hotels",
-        "index": "Categories"
-    })
-    st.write(df_type)
-    st.text('Little description here')
+    # st.subheader('Graph Title - to do')
+    # df_type = px.bar(df_hotel["Type_of_hotels"].value_counts(ascending=True).nlargest(10), height=600, width=800, labels={
+    #     "value": "Type of hotels",
+    #     "index": "Categories"
+    # })
+    # st.write(df_type)
+    # st.text('Little description here')
 
 
 
@@ -233,22 +282,24 @@ elif data_select == "Hotels":
 
 elif data_select == "Pubs":
 
-    st.title("Pubs insights")
+    st.title("Pubs data")
 
 
 #   Graph n.1
 
-    st.subheader('Graph Title - to do')
+    st.subheader('Number of pubs per neighbourhood')
     fig=px.bar(df_pub['Neighbourhoods'].value_counts(), orientation='h', height=750, width=850, labels={
         "value": "Number of pubs per neighbourhood",
         "index": "Neighbourhoods"
     })
     st.write(fig)
 
-    st.text('Little description here')
+    st.text('Pubs are located in most neighbourhood')
+
+
 
 #   Graph n.2
-
+    st.subheader('Percentage of pubs by neighbourhood')
     plt.figure(facecolor='white')
 
     df_pub['Neighbourhoods'].value_counts().nlargest(10).plot(kind = 'pie',figsize=(8,8), autopct = '%1.1f%%')
@@ -258,33 +309,32 @@ elif data_select == "Pubs":
 
 
 #   Graph n.3
-
+    st.subheader('Price range of pubs in Berlin')
     fig = px.bar(df_pub['Prices'].value_counts(ascending=True), orientation='h', height=650, width=850, labels={
         "value": "Number of pubs with respective price range",
         "index": "Price range (in euros)"
-    },
-    title='Price range of pubs in Berlin')
+    })
     st.write(fig)   
 
-    st.text('Little description here')
+    st.text('Most of the pubs fall into a low-middle price range.')
 
 
-
+    st.subheader('Price range per rating')
     df_pub[['Ratings','Prices']].groupby(['Prices']).value_counts().plot(kind='bar')
     plt.ylabel('Counts')
     plt.title('Most prefered price range')
     st.pyplot()
-    st.text('Little description here')
+    st.markdown('Low-middle price range business are rated higher than the middle-high price range business.')
 
 #   Graph n.3
 
-    st.subheader('Graph Title - to do')
-    df_type = px.bar(df_pub["Type_of_pubs"].value_counts(ascending=True).nlargest(10), height=600, width=800, labels={
-        "value": "Type of pubs",
-        "index": "Categories"
-    })
-    st.write(df_type)
-    st.text('Little description here')
+    # st.subheader('Graph Title - to do')
+    # df_type = px.bar(df_pub["Type_of_pubs"].value_counts(ascending=True).nlargest(10), height=600, width=800, labels={
+    #     "value": "Type of pubs",
+    #     "index": "Categories"
+    # })
+    # st.write(df_type)
+    # st.text('Little description here')
 
 
 
